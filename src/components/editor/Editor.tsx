@@ -1,10 +1,16 @@
 import { useWorkspaceStore } from "../../stores/workspaceStore";
-import { writeFile, stringifyFrontmatter } from "../../services/fileService";
-import { FileText, Save, Edit3, FileCode } from "lucide-react";
+import { writeFile } from "../../services/fileService";
+import { FileText, Save, Edit3, FileCode, Settings2 } from "lucide-react";
 import { useState, useEffect, useCallback, useRef, Suspense, lazy } from "react";
 import { cn } from "../../lib/utils";
 import MonacoEditor, { OnMount } from "@monaco-editor/react";
 import type { editor } from "monaco-editor";
+import { PropertyPanel } from "./PropertyPanel";
+import {
+  parseFrontmatterEnhanced,
+  stringifyFrontmatterEnhanced,
+  FrontmatterValue,
+} from "../../utils/frontmatter";
 
 const MilkdownEditor = lazy(() =>
   import("./MilkdownEditor").then((mod) => ({ default: mod.MilkdownEditor }))
@@ -91,11 +97,15 @@ export function Editor() {
   const [isSaving, setIsSaving] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [editorMode, setEditorMode] = useState<EditorMode>("wysiwyg");
+  const [showPropertyPanel, setShowPropertyPanel] = useState(true);
+  const [frontmatterData, setFrontmatterData] = useState<Record<string, FrontmatterValue>>({});
 
   useEffect(() => {
     if (activeNote) {
       setLocalContent(activeNote.content);
       setHasUnsavedChanges(false);
+      const parsed = parseFrontmatterEnhanced(activeNote.content);
+      setFrontmatterData(parsed.data);
     }
   }, [activeNote?.id, activeNote?.content]);
 
@@ -104,10 +114,9 @@ export function Editor() {
 
     setIsSaving(true);
     try {
-      const content = stringifyFrontmatter(
-        activeNote.frontmatter || {},
-        localContent
-      );
+      const parsed = parseFrontmatterEnhanced(localContent);
+      const mergedData = { ...parsed.data, ...frontmatterData };
+      const content = stringifyFrontmatterEnhanced(mergedData, parsed.body);
       await writeFile(activeNote.path, content);
       updateNoteContent(activeNote.id, localContent);
       setHasUnsavedChanges(false);
@@ -116,7 +125,7 @@ export function Editor() {
     } finally {
       setIsSaving(false);
     }
-  }, [activeNote, localContent, hasUnsavedChanges, updateNoteContent]);
+  }, [activeNote, localContent, hasUnsavedChanges, updateNoteContent, frontmatterData]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -163,6 +172,19 @@ export function Editor() {
         </div>
         <div className="flex items-center gap-2">
           <button
+            onClick={() => setShowPropertyPanel(!showPropertyPanel)}
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors",
+              showPropertyPanel
+                ? "bg-accent text-accent-foreground"
+                : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+            )}
+            title="切换属性面板"
+          >
+            <Settings2 className="h-3.5 w-3.5" />
+            属性
+          </button>
+          <button
             onClick={toggleEditorMode}
             className={cn(
               "flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors",
@@ -197,6 +219,16 @@ export function Editor() {
           </button>
         </div>
       </div>
+
+      {showPropertyPanel && (
+        <PropertyPanel
+          frontmatter={frontmatterData}
+          onChange={(data) => {
+            setFrontmatterData(data);
+            setHasUnsavedChanges(true);
+          }}
+        />
+      )}
 
       <div className="flex-1 overflow-hidden">
         {editorMode === "wysiwyg" ? (
