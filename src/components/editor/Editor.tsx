@@ -1,14 +1,96 @@
 import { useWorkspaceStore } from "../../stores/workspaceStore";
 import { writeFile, stringifyFrontmatter } from "../../services/fileService";
-import { FileText, Save } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+import { FileText, Save, Edit3, FileCode } from "lucide-react";
+import { useState, useEffect, useCallback, useRef, Suspense, lazy } from "react";
 import { cn } from "../../lib/utils";
+import MonacoEditor, { OnMount } from "@monaco-editor/react";
+import type { editor } from "monaco-editor";
+
+const MilkdownEditor = lazy(() =>
+  import("./MilkdownEditor").then((mod) => ({ default: mod.MilkdownEditor }))
+);
+
+type EditorMode = "wysiwyg" | "source";
+
+function EditorLoading() {
+  return (
+    <div className="flex h-full items-center justify-center bg-background">
+      <div className="flex flex-col items-center gap-2 text-muted-foreground">
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        <span className="text-sm">加载编辑器...</span>
+      </div>
+    </div>
+  );
+}
+
+function SourceEditor({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+
+  const handleEditorMount: OnMount = useCallback((editorInstance) => {
+    editorRef.current = editorInstance;
+    editorInstance.focus();
+  }, []);
+
+  const handleEditorChange = useCallback(
+    (val: string | undefined) => {
+      if (val !== undefined) {
+        onChange(val);
+      }
+    },
+    [onChange]
+  );
+
+  return (
+    <MonacoEditor
+      height="100%"
+      defaultLanguage="markdown"
+      value={value}
+      onChange={handleEditorChange}
+      onMount={handleEditorMount}
+      theme="vs-dark"
+      options={{
+        minimap: { enabled: true, scale: 2 },
+        fontSize: 14,
+        lineNumbers: "on",
+        wordWrap: "on",
+        scrollBeyondLastLine: false,
+        renderLineHighlight: "all",
+        folding: true,
+        foldingStrategy: "indentation",
+        automaticLayout: true,
+        padding: { top: 16, bottom: 16 },
+        scrollbar: {
+          verticalScrollbarSize: 10,
+          horizontalScrollbarSize: 10,
+        },
+        tabSize: 2,
+        insertSpaces: true,
+        quickSuggestions: {
+          other: true,
+          comments: false,
+          strings: false,
+        },
+        suggestOnTriggerCharacters: true,
+        acceptSuggestionOnEnter: "on",
+        formatOnPaste: true,
+        formatOnType: true,
+      }}
+    />
+  );
+}
 
 export function Editor() {
   const { activeNote, updateNoteContent } = useWorkspaceStore();
   const [localContent, setLocalContent] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [editorMode, setEditorMode] = useState<EditorMode>("wysiwyg");
 
   useEffect(() => {
     if (activeNote) {
@@ -48,10 +130,14 @@ export function Editor() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleSave]);
 
-  const handleContentChange = (value: string) => {
+  const handleContentChange = useCallback((value: string) => {
     setLocalContent(value);
     setHasUnsavedChanges(value !== activeNote?.content);
-  };
+  }, [activeNote?.content]);
+
+  const toggleEditorMode = useCallback(() => {
+    setEditorMode((prev) => (prev === "wysiwyg" ? "source" : "wysiwyg"));
+  }, []);
 
   if (!activeNote) {
     return (
@@ -77,6 +163,26 @@ export function Editor() {
         </div>
         <div className="flex items-center gap-2">
           <button
+            onClick={toggleEditorMode}
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors",
+              "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+            )}
+            title={editorMode === "wysiwyg" ? "切换到源码模式" : "切换到所见即所得模式"}
+          >
+            {editorMode === "wysiwyg" ? (
+              <>
+                <FileCode className="h-3.5 w-3.5" />
+                源码
+              </>
+            ) : (
+              <>
+                <Edit3 className="h-3.5 w-3.5" />
+                编辑
+              </>
+            )}
+          </button>
+          <button
             onClick={handleSave}
             disabled={!hasUnsavedChanges || isSaving}
             className={cn(
@@ -93,13 +199,17 @@ export function Editor() {
       </div>
 
       <div className="flex-1 overflow-hidden">
-        <textarea
-          value={localContent}
-          onChange={(e) => handleContentChange(e.target.value)}
-          className="w-full h-full p-4 bg-background text-foreground resize-none focus:outline-none font-mono text-sm leading-relaxed"
-          placeholder="开始输入..."
-          spellCheck={false}
-        />
+        {editorMode === "wysiwyg" ? (
+          <Suspense fallback={<EditorLoading />}>
+            <MilkdownEditor
+              value={localContent}
+              onChange={handleContentChange}
+              className="h-full"
+            />
+          </Suspense>
+        ) : (
+          <SourceEditor value={localContent} onChange={handleContentChange} />
+        )}
       </div>
 
       <div className="flex items-center gap-2 px-4 py-2 border-t border-border bg-card text-xs text-muted-foreground">
@@ -107,6 +217,10 @@ export function Editor() {
         <span>·</span>
         <span>行数: {localContent.split("\n").length}</span>
         {hasUnsavedChanges && <span>· 未保存</span>}
+        <span>·</span>
+        <span>
+          模式: {editorMode === "wysiwyg" ? "所见即所得" : "源码"}
+        </span>
       </div>
     </div>
   );

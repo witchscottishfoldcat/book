@@ -75,3 +75,119 @@
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground) / 0.5);
 }
+
+.milkdown-editor-wrapper {
+  @apply h-full overflow-auto p-4;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.milkdown-editor-wrapper .editor {
+  @apply outline-none min-h-full;
+}
+
+.milkdown-editor-wrapper .editor .ProseMirror {
+  @apply outline-none;
+}
+
+.milkdown-editor-wrapper p {
+  @apply mb-4 leading-relaxed;
+}
+
+.milkdown-editor-wrapper h1 {
+  @apply text-3xl font-bold mb-4 mt-6 pb-2 border-b border-border;
+}
+
+.milkdown-editor-wrapper h2 {
+  @apply text-2xl font-semibold mb-3 mt-5;
+}
+
+.milkdown-editor-wrapper h3 {
+  @apply text-xl font-semibold mb-2 mt-4;
+}
+
+.milkdown-editor-wrapper h4 {
+  @apply text-lg font-semibold mb-2 mt-3;
+}
+
+.milkdown-editor-wrapper ul,
+.milkdown-editor-wrapper ol {
+  @apply mb-4 pl-6;
+}
+
+.milkdown-editor-wrapper ul {
+  @apply list-disc;
+}
+
+.milkdown-editor-wrapper ol {
+  @apply list-decimal;
+}
+
+.milkdown-editor-wrapper li {
+  @apply mb-1;
+}
+
+.milkdown-editor-wrapper blockquote {
+  @apply border-l-4 border-primary pl-4 py-2 my-4 bg-muted/50 italic;
+}
+
+.milkdown-editor-wrapper code {
+  @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.milkdown-editor-wrapper pre {
+  @apply bg-muted p-4 rounded-lg my-4 overflow-x-auto;
+}
+
+.milkdown-editor-wrapper pre code {
+  @apply bg-transparent p-0;
+}
+
+.milkdown-editor-wrapper a {
+  @apply text-primary underline hover:no-underline;
+}
+
+.milkdown-editor-wrapper hr {
+  @apply my-6 border-border;
+}
+
+.milkdown-editor-wrapper table {
+  @apply w-full border-collapse mb-4;
+}
+
+.milkdown-editor-wrapper th,
+.milkdown-editor-wrapper td {
+  @apply border border-border px-3 py-2 text-left;
+}
+
+.milkdown-editor-wrapper th {
+  @apply bg-muted font-semibold;
+}
+
+.milkdown-editor-wrapper img {
+  @apply max-w-full h-auto rounded-lg;
+}
+
+.milkdown-editor-wrapper:empty::before {
+  content: attr(data-placeholder);
+  @apply text-muted-foreground pointer-events-none;
+}
+
+.milkdown-editor-wrapper .ProseMirror-selectednode {
+  @apply outline outline-2 outline-primary;
+}
+
+.milkdown-editor-wrapper .ProseMirror-gapcursor {
+  @apply pointer-events-none;
+}
+
+.task-list-item {
+  @apply flex items-start gap-2;
+}
+
+.task-list-item input[type="checkbox"] {
+  @apply mt-1 w-4 h-4 rounded border-border;
+}
+
+.strikethrough {
+  @apply line-through;
+}
