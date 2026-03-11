@@ -1,0 +1,7 @@
+cargo:rerun-if-changed=permissions
+cargo:PERMISSION_FILES_PATH=D:\ADM\PyExE\book\src-tauri\target\debug\build\tauri-plugin-dialog-a03eba77e445841a\out\tauri-plugin-dialog-permission-files
+cargo:rerun-if-env-changed=REMOVE_UNUSED_COMMANDS
+cargo:GLOBAL_API_SCRIPT_PATH=\\?\C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\tauri-plugin-dialog-2.6.0\api-iife.js
+cargo:rustc-check-cfg=cfg(mobile)
+cargo:rustc-check-cfg=cfg(desktop)
+cargo:rustc-cfg=desktop

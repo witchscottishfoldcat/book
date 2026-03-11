@@ -1,0 +1,10 @@
+D:\ADM\PyExE\book\src-tauri\target\release\deps\idna-39ce37289a619b44.d: C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\lib.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\deprecated.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\punycode.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\uts46.rs
+
+D:\ADM\PyExE\book\src-tauri\target\release\deps\libidna-39ce37289a619b44.rlib: C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\lib.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\deprecated.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\punycode.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\uts46.rs
+
+D:\ADM\PyExE\book\src-tauri\target\release\deps\libidna-39ce37289a619b44.rmeta: C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\lib.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\deprecated.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\punycode.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\uts46.rs
+
+C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\lib.rs:
+C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\deprecated.rs:
+C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\punycode.rs:
+C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\idna-1.1.0\src\uts46.rs:

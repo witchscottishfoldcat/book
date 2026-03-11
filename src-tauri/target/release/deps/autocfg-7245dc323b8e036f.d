@@ -1,0 +1,10 @@
+D:\ADM\PyExE\book\src-tauri\target\release\deps\autocfg-7245dc323b8e036f.d: C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\lib.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\error.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\rustc.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\version.rs
+
+D:\ADM\PyExE\book\src-tauri\target\release\deps\libautocfg-7245dc323b8e036f.rlib: C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\lib.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\error.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\rustc.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\version.rs
+
+D:\ADM\PyExE\book\src-tauri\target\release\deps\libautocfg-7245dc323b8e036f.rmeta: C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\lib.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\error.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\rustc.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\version.rs
+
+C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\lib.rs:
+C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\error.rs:
+C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\rustc.rs:
+C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\autocfg-1.5.0\src\version.rs:

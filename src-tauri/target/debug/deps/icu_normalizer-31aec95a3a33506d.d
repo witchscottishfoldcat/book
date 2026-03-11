@@ -1,0 +1,8 @@
+D:\ADM\PyExE\book\src-tauri\target\debug\deps\icu_normalizer-31aec95a3a33506d.d: C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\icu_normalizer-2.1.1\src\lib.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\icu_normalizer-2.1.1\src\properties.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\icu_normalizer-2.1.1\src\provider.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\icu_normalizer-2.1.1\src\uts46.rs
+
+D:\ADM\PyExE\book\src-tauri\target\debug\deps\libicu_normalizer-31aec95a3a33506d.rmeta: C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\icu_normalizer-2.1.1\src\lib.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\icu_normalizer-2.1.1\src\properties.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\icu_normalizer-2.1.1\src\provider.rs C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\icu_normalizer-2.1.1\src\uts46.rs
+
+C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\icu_normalizer-2.1.1\src\lib.rs:
+C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\icu_normalizer-2.1.1\src\properties.rs:
+C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\icu_normalizer-2.1.1\src\provider.rs:
+C:\Users\Administrator\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-e791a3f93f26854f\icu_normalizer-2.1.1\src\uts46.rs:

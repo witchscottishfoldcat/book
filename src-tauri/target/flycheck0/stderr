@@ -1,0 +1,144 @@
+   0.377098400s  INFO prepare_target{force=false package_id=mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri) target="mdnotes_lib"}: cargo::core::compiler::fingerprint: fingerprint error for mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri)/Check { test: false }/TargetInner { ..: lib_target("mdnotes_lib", ["staticlib", "cdylib", "rlib"], "D:\\ADM\\PyExE\\book\\src-tauri\\src\\lib.rs", Edition2021) }
+   0.377138600s  INFO prepare_target{force=false package_id=mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri) target="mdnotes_lib"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\ADM\PyExE\book\src-tauri\target\debug\.fingerprint\mdnotes-7a783a021d87b5a7\lib-mdnotes_lib`
+
+Caused by:
+    系统找不到指定的文件。 (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+   0.386747200s  INFO prepare_target{force=false package_id=mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri) target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri)/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "D:\\ADM\\PyExE\\book\\src-tauri\\build.rs", Edition2021) }
+   0.386763100s  INFO prepare_target{force=false package_id=mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri) target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\ADM\PyExE\book\src-tauri\target\debug\.fingerprint\mdnotes-b6b31d20105d4fa2\run-build-script-build-script-build`
+
+Caused by:
+    系统找不到指定的文件。 (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.442045700s  INFO prepare_target{force=false package_id=mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri) target="mdnotes_lib"}: cargo::core::compiler::fingerprint: fingerprint error for mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri)/Check { test: true }/TargetInner { ..: lib_target("mdnotes_lib", ["staticlib", "cdylib", "rlib"], "D:\\ADM\\PyExE\\book\\src-tauri\\src\\lib.rs", Edition2021) }
+   0.442071200s  INFO prepare_target{force=false package_id=mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri) target="mdnotes_lib"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\ADM\PyExE\book\src-tauri\target\debug\.fingerprint\mdnotes-cc582d60087cd058\test-lib-mdnotes_lib`
+
+Caused by:
+    系统找不到指定的文件。 (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+   0.443094800s  INFO prepare_target{force=false package_id=mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri) target="mdnotes"}: cargo::core::compiler::fingerprint: fingerprint error for mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri)/Check { test: false }/TargetInner { name: "mdnotes", doc: true, ..: with_path("D:\\ADM\\PyExE\\book\\src-tauri\\src\\main.rs", Edition2021) }
+   0.443109400s  INFO prepare_target{force=false package_id=mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri) target="mdnotes"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\ADM\PyExE\book\src-tauri\target\debug\.fingerprint\mdnotes-9fbe009e15dd8329\bin-mdnotes`
+
+Caused by:
+    系统找不到指定的文件。 (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+   0.443932100s  INFO prepare_target{force=false package_id=mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri) target="mdnotes"}: cargo::core::compiler::fingerprint: fingerprint error for mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri)/Check { test: true }/TargetInner { name: "mdnotes", doc: true, ..: with_path("D:\\ADM\\PyExE\\book\\src-tauri\\src\\main.rs", Edition2021) }
+   0.443944400s  INFO prepare_target{force=false package_id=mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri) target="mdnotes"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\ADM\PyExE\book\src-tauri\target\debug\.fingerprint\mdnotes-e061fb3d448c342f\test-bin-mdnotes`
+
+Caused by:
+    系统找不到指定的文件。 (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+   Compiling mdnotes v0.1.0 (D:\ADM\PyExE\book\src-tauri)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.75s

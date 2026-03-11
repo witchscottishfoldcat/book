@@ -1,0 +1,2 @@
+cargo:rustc-link-search=native=D:\ADM\PyExE\book\src-tauri\target\release\build\webview2-com-sys-063b134af2cb83c4\out\x64
+cargo:rustc-link-lib=advapi32
