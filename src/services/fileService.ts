@@ -119,6 +119,15 @@ export async function renameFile(
   }
 }
 
+export async function openInExplorer(filePath: string): Promise<void> {
+  try {
+    await invoke("open_in_explorer", { path: filePath });
+  } catch (error) {
+    console.error("打开资源管理器失败:", error);
+    throw error;
+  }
+}
+
 export function parseFrontmatter(content: string): {
   frontmatter: Record<string, unknown> | null;
   body: string;

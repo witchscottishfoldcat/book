@@ -4,48 +4,51 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Light mode — 清爽、精致 */
+    --background: 220 30% 97%;
+    --foreground: 224 71% 5%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 224 71% 5%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
+    --popover-foreground: 224 71% 5%;
+    --primary: 248 80% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 215 28% 91%;
+    --secondary-foreground: 224 60% 20%;
+    --muted: 215 25% 93%;
+    --muted-foreground: 215 18% 46%;
+    --accent: 215 28% 89%;
+    --accent-foreground: 224 71% 5%;
+    --destructive: 0 82% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 215 25% 85%;
+    --input: 215 25% 90%;
+    --ring: 248 80% 58%;
+    --radius: 0.6rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    /* Dark mode — 深邃、专业，类 Linear/Craft 风格 */
+    --background: 224 22% 8%;
+    --foreground: 220 18% 88%;
+    --card: 222 24% 10%;
+    --card-foreground: 220 18% 88%;
+    --popover: 222 24% 12%;
+    --popover-foreground: 220 18% 88%;
+    --primary: 248 82% 68%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 18% 17%;
+    --secondary-foreground: 220 18% 78%;
+    --muted: 220 18% 14%;
+    --muted-foreground: 220 12% 50%;
+    --accent: 220 20% 19%;
+    --accent-foreground: 220 18% 88%;
+    --destructive: 0 68% 52%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 18% 16%;
+    --input: 220 18% 13%;
+    --ring: 248 82% 68%;
+    --radius: 0.6rem;
   }
 }
 
@@ -55,30 +58,43 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
+/* ─── 滚动条 ─── */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
-
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted-foreground) / 0.3);
-  border-radius: 3px;
+  background: hsl(var(--muted-foreground) / 0.25);
+  border-radius: 99px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground) / 0.5);
+  background: hsl(var(--muted-foreground) / 0.45);
 }
 
+/* ─── 选中文字颜色 ─── */
+::selection {
+  background: hsl(var(--primary) / 0.25);
+  color: hsl(var(--foreground));
+}
+
+/* ─── Milkdown 编辑器样式 ─── */
 .milkdown-editor-wrapper {
-  @apply h-full overflow-auto p-4;
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  @apply h-full overflow-auto;
+  padding: 3rem 4rem;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .milkdown-editor-wrapper .editor {
@@ -90,23 +106,40 @@
 }
 
 .milkdown-editor-wrapper p {
-  @apply mb-4 leading-relaxed;
+  @apply mb-4;
+  color: hsl(var(--foreground) / 0.9);
 }
 
 .milkdown-editor-wrapper h1 {
-  @apply text-3xl font-bold mb-4 mt-6 pb-2 border-b border-border;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  @apply mb-4 mt-8 pb-3;
+  border-bottom: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
 }
 
 .milkdown-editor-wrapper h2 {
-  @apply text-2xl font-semibold mb-3 mt-5;
+  font-size: 1.45rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  @apply mb-3 mt-7;
+  color: hsl(var(--foreground));
 }
 
 .milkdown-editor-wrapper h3 {
-  @apply text-xl font-semibold mb-2 mt-4;
+  font-size: 1.2rem;
+  font-weight: 620;
+  letter-spacing: -0.01em;
+  @apply mb-2 mt-5;
+  color: hsl(var(--foreground));
 }
 
 .milkdown-editor-wrapper h4 {
-  @apply text-lg font-semibold mb-2 mt-3;
+  font-size: 1.05rem;
+  font-weight: 600;
+  @apply mb-2 mt-4;
+  color: hsl(var(--foreground) / 0.9);
 }
 
 .milkdown-editor-wrapper ul,
@@ -115,79 +148,168 @@
 }
 
 .milkdown-editor-wrapper ul {
-  @apply list-disc;
+  list-style-type: disc;
 }
 
 .milkdown-editor-wrapper ol {
-  @apply list-decimal;
+  list-style-type: decimal;
 }
 
 .milkdown-editor-wrapper li {
-  @apply mb-1;
+  @apply mb-1.5;
+  color: hsl(var(--foreground) / 0.9);
 }
 
 .milkdown-editor-wrapper blockquote {
-  @apply border-l-4 border-primary pl-4 py-2 my-4 bg-muted/50 italic;
+  border-left: 3px solid hsl(var(--primary) / 0.6);
+  @apply pl-5 py-1 my-5;
+  background: hsl(var(--primary) / 0.05);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  @apply italic;
+  color: hsl(var(--muted-foreground));
 }
 
 .milkdown-editor-wrapper code {
-  @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
+  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, monospace;
+  font-size: 0.85em;
+  background: hsl(var(--muted));
+  color: hsl(var(--primary));
+  @apply px-1.5 py-0.5 rounded;
 }
 
 .milkdown-editor-wrapper pre {
-  @apply bg-muted p-4 rounded-lg my-4 overflow-x-auto;
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+  background: hsl(var(--muted));
+  border: 1px solid hsl(var(--border));
+  @apply p-5 rounded-xl my-5 overflow-x-auto;
 }
 
 .milkdown-editor-wrapper pre code {
-  @apply bg-transparent p-0;
+  background: transparent;
+  color: hsl(var(--foreground) / 0.85);
+  padding: 0;
+  font-size: 0.88em;
 }
 
 .milkdown-editor-wrapper a {
-  @apply text-primary underline hover:no-underline;
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: hsl(var(--primary) / 0.4);
+  transition: text-decoration-color 0.15s;
+}
+.milkdown-editor-wrapper a:hover {
+  text-decoration-color: hsl(var(--primary));
 }
 
 .milkdown-editor-wrapper hr {
-  @apply my-6 border-border;
+  @apply my-8;
+  border: none;
+  border-top: 1px solid hsl(var(--border));
 }
 
 .milkdown-editor-wrapper table {
-  @apply w-full border-collapse mb-4;
+  @apply w-full border-collapse mb-5 rounded-lg overflow-hidden;
 }
 
 .milkdown-editor-wrapper th,
 .milkdown-editor-wrapper td {
-  @apply border border-border px-3 py-2 text-left;
+  border: 1px solid hsl(var(--border));
+  @apply px-4 py-2.5 text-left text-sm;
 }
 
 .milkdown-editor-wrapper th {
-  @apply bg-muted font-semibold;
+  background: hsl(var(--muted));
+  font-weight: 600;
+  color: hsl(var(--foreground) / 0.85);
+}
+
+.milkdown-editor-wrapper tr:hover td {
+  background: hsl(var(--accent) / 0.4);
 }
 
 .milkdown-editor-wrapper img {
-  @apply max-w-full h-auto rounded-lg;
-}
-
-.milkdown-editor-wrapper:empty::before {
-  content: attr(data-placeholder);
-  @apply text-muted-foreground pointer-events-none;
+  @apply max-w-full h-auto rounded-xl;
+  border: 1px solid hsl(var(--border));
 }
 
 .milkdown-editor-wrapper .ProseMirror-selectednode {
-  @apply outline outline-2 outline-primary;
+  outline: 2px solid hsl(var(--primary) / 0.6);
+  border-radius: var(--radius);
 }
 
 .milkdown-editor-wrapper .ProseMirror-gapcursor {
   @apply pointer-events-none;
 }
 
+/* Placeholder */
+.milkdown-editor-wrapper .ProseMirror p.is-editor-empty:first-child::before {
+  content: "开始书写...";
+  color: hsl(var(--muted-foreground) / 0.6);
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
+
+/* Task list */
 .task-list-item {
-  @apply flex items-start gap-2;
+  @apply flex items-start gap-2 list-none;
 }
-
 .task-list-item input[type="checkbox"] {
-  @apply mt-1 w-4 h-4 rounded border-border;
+  @apply mt-1 w-4 h-4 rounded;
+  accent-color: hsl(var(--primary));
 }
 
+/* Strikethrough */
 .strikethrough {
-  @apply line-through;
+  @apply line-through opacity-60;
+}
+
+/* ─── 动画 ─── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+/* ─── 输入框通用样式 ─── */
+.input-base {
+  @apply w-full px-3 py-1.5 text-sm rounded-md transition-all duration-150;
+  background: hsl(var(--input));
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+  outline: none;
+}
+.input-base:focus {
+  border-color: hsl(var(--primary) / 0.6);
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.12);
+}
+.input-base::placeholder {
+  color: hsl(var(--muted-foreground) / 0.7);
+}
+
+/* ─── 按钮通用样式 ─── */
+.btn-ghost {
+  @apply flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium transition-all duration-150;
+  color: hsl(var(--muted-foreground));
+}
+.btn-ghost:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--foreground));
+}
+.btn-ghost.active {
+  background: hsl(var(--primary) / 0.15);
+  color: hsl(var(--primary));
 }

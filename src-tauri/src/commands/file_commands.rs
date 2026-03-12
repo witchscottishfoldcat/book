@@ -144,3 +144,39 @@ pub fn rename_file(old_path: String, new_name: String) -> Result<String> {
     fs::rename(old, &new)?;
     Ok(new.to_string_lossy().to_string())
 }
+
+#[tauri::command]
+pub fn open_in_explorer(path: String) -> Result<()> {
+    let file_path = Path::new(&path);
+
+    if !file_path.exists() {
+        return Err(Error::NotFound(file_path.to_path_buf()));
+    }
+
+    #[cfg(target_os = "windows")]
+    {
+        std::process::Command::new("explorer")
+            .args(["/select,", &path])
+            .spawn()
+            .map_err(|e| Error::Io(e))?;
+    }
+
+    #[cfg(target_os = "macos")]
+    {
+        std::process::Command::new("open")
+            .args(["-R", &path])
+            .spawn()
+            .map_err(|e| Error::Io(e))?;
+    }
+
+    #[cfg(target_os = "linux")]
+    {
+        let path_str = file_path.to_string_lossy().to_string();
+        std::process::Command::new("xdg-open")
+            .arg(&path_str)
+            .spawn()
+            .map_err(|e| Error::Io(e))?;
+    }
+
+    Ok(())
+}
