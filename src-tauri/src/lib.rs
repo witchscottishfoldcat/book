@@ -1,6 +1,8 @@
 mod commands;
 mod error;
 
+use tauri::Manager;
+
 pub use error::{Error, Result};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]

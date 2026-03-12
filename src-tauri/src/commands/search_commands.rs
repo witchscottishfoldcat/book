@@ -27,6 +27,23 @@ pub fn init_search_db(app_data_dir: &str) -> SqliteResult<Connection> {
     
     let conn = Connection::open(&db_path)?;
     
+    let has_valid_config: bool = conn
+        .query_row(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='notes_fts_config' AND sql LIKE '%key TEXT PRIMARY KEY%'",
+            [],
+            |row| row.get::<_, i32>(0),
+        )
+        .is_ok();
+    
+    if !has_valid_config {
+        conn.execute("DROP TABLE IF EXISTS notes_fts_config", []).ok();
+        conn.execute("DROP TABLE IF EXISTS notes_fts", []).ok();
+        conn.execute("DROP TABLE IF EXISTS notes", []).ok();
+        conn.execute("DROP TRIGGER IF EXISTS notes_ai", []).ok();
+        conn.execute("DROP TRIGGER IF EXISTS notes_ad", []).ok();
+        conn.execute("DROP TRIGGER IF EXISTS notes_au", []).ok();
+    }
+    
     conn.execute_batch(
         r#"
         CREATE TABLE IF NOT EXISTS notes (
