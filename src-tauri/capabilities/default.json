@@ -4,6 +4,8 @@
   "windows": ["main"],
   "permissions": [
     "core:default",
+    "core:path:default",
+    "core:path:allow-app-data-dir",
     "fs:default",
     "fs:allow-read-dir",
     "fs:allow-read-file",

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Sidebar } from "./components/sidebar/Sidebar";
 import { Editor } from "./components/editor/Editor";
+import { GraphView } from "./components/graph/GraphView";
 import { useWorkspaceStore } from "./stores/workspaceStore";
 
 function LoadingScreen() {
   return (
     <div className="flex h-screen items-center justify-center bg-background">
       <div className="flex flex-col items-center gap-5 animate-fade-in">
-        {/* Logo mark */}
         <div className="relative">
           <div
             className="w-14 h-14 rounded-2xl flex items-center justify-center"
@@ -46,9 +46,12 @@ function LoadingScreen() {
   );
 }
 
+export type ViewMode = "editor" | "graph";
+
 function App() {
   const { initWorkspace } = useWorkspaceStore();
   const [isLoading, setIsLoading] = useState(true);
+  const [viewMode, setViewMode] = useState<ViewMode>("editor");
 
   useEffect(() => {
     const init = async () => {
@@ -60,9 +63,20 @@ function App() {
 
   if (isLoading) return <LoadingScreen />;
 
+  if (viewMode === "graph") {
+    return (
+      <div className="flex h-screen overflow-hidden bg-background">
+        <Sidebar viewMode={viewMode} onViewModeChange={setViewMode} />
+        <main className="flex-1 overflow-hidden">
+          <GraphView onClose={() => setViewMode("editor")} />
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-screen overflow-hidden bg-background">
-      <Sidebar />
+      <Sidebar viewMode={viewMode} onViewModeChange={setViewMode} />
       <main className="flex-1 overflow-hidden">
         <Editor />
       </main>

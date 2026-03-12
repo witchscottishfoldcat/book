@@ -202,6 +202,24 @@
   text-decoration-color: hsl(var(--primary));
 }
 
+.milkdown-editor-wrapper .wiki-link,
+.milkdown-editor-wrapper a[data-type="wiki-link"] {
+  color: hsl(260 70% 60%);
+  background: hsl(260 70% 60% / 0.1);
+  padding: 0.1em 0.4em;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid hsl(260 70% 60% / 0.2);
+}
+.milkdown-editor-wrapper .wiki-link:hover,
+.milkdown-editor-wrapper a[data-type="wiki-link"]:hover {
+  background: hsl(260 70% 60% / 0.18);
+  border-color: hsl(260 70% 60% / 0.4);
+}
+
 .milkdown-editor-wrapper hr {
   @apply my-8;
   border: none;

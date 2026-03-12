@@ -2,22 +2,32 @@ mod commands;
 mod error;
 
 pub use error::{Error, Result};
-use commands::search_commands::{SearchDb, init_search_db};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    let app_data_dir = dirs::data_local_dir()
-        .unwrap_or_else(|| std::path::PathBuf::from("."))
-        .join("mdnotes");
-    
-    let search_db = init_search_db(app_data_dir.to_str().unwrap_or("."))
-        .expect("Failed to initialize search database");
-    
     tauri::Builder::default()
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_shell::init())
-        .manage(SearchDb(std::sync::Mutex::new(search_db)))
+        .setup(|app| {
+            use commands::search_commands::{SearchDb, init_search_db};
+            use std::sync::Mutex;
+            
+            let app_data_dir = app.path().app_data_dir()
+                .expect("Failed to get app data directory");
+            
+            if !app_data_dir.exists() {
+                std::fs::create_dir_all(&app_data_dir)
+                    .expect("Failed to create app data directory");
+            }
+            
+            let search_db = init_search_db(app_data_dir.to_str().unwrap_or("."))
+                .expect("Failed to initialize search database");
+            
+            app.manage(SearchDb(Mutex::new(search_db)));
+            
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![
             commands::file_commands::read_directory,
             commands::file_commands::read_file,

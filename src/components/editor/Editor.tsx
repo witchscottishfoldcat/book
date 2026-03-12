@@ -1,5 +1,7 @@
 import { useWorkspaceStore } from "../../stores/workspaceStore";
-import { writeFile } from "../../services/fileService";
+import { writeFile, readFile, parseFrontmatter } from "../../services/fileService";
+import { indexNote } from "../../services/searchService";
+import { normalizeLinkTarget } from "../../utils/linkUtils";
 import { FileText, Save, Edit3, FileCode, Settings2, CheckCheck } from "lucide-react";
 import { useState, useEffect, useCallback, useRef, Suspense, lazy } from "react";
 import { cn } from "../../lib/utils";
@@ -161,6 +163,13 @@ export function Editor() {
       const mergedData = { ...parsed.data, ...frontmatterData };
       const content = stringifyFrontmatterEnhanced(mergedData, parsed.body);
       await writeFile(activeNote.path, content);
+      
+      const title = activeNote.name.replace(/\.md$/i, "");
+      const tags = Array.isArray(mergedData.tags) 
+        ? mergedData.tags.filter((t): t is string => typeof t === "string") 
+        : [];
+      await indexNote(activeNote.path, title, parsed.body, tags, Date.now());
+      
       updateNoteContent(activeNote.id, localContent);
       setHasUnsavedChanges(false);
       setJustSaved(true);
@@ -187,6 +196,39 @@ export function Editor() {
     setLocalContent(value);
     setHasUnsavedChanges(value !== activeNote?.content);
   }, [activeNote?.content]);
+
+  const handleWikiLinkClick = useCallback(async (target: string) => {
+    const { workspace, addOpenNote } = useWorkspaceStore.getState();
+    if (!workspace?.rootPath) return;
+    
+    const normalizedName = normalizeLinkTarget(target);
+    const possiblePaths = [
+      `${workspace.rootPath}/${normalizedName}`,
+      `${workspace.rootPath}/${normalizedName.replace(/\.md$/i, "")}/${normalizedName}`,
+    ];
+    
+    for (const path of possiblePaths) {
+      try {
+        const content = await readFile(path);
+        const { frontmatter, body } = parseFrontmatter(content);
+        const note = {
+          id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          name: normalizedName,
+          path,
+          content: body,
+          frontmatter: frontmatter || undefined,
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+        };
+        addOpenNote(note);
+        return;
+      } catch {
+        continue;
+      }
+    }
+    
+    alert(`找不到笔记: ${target}\n\n您需要先创建这个笔记。`);
+  }, []);
 
   const toggleEditorMode = useCallback(() => {
     setEditorMode((prev) => (prev === "wysiwyg" ? "source" : "wysiwyg"));
@@ -303,6 +345,7 @@ export function Editor() {
             <MilkdownEditor
               value={localContent}
               onChange={handleContentChange}
+              onWikiLinkClick={handleWikiLinkClick}
               className="h-full"
             />
           </Suspense>

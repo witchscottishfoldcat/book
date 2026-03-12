@@ -3,12 +3,14 @@ import { FileTreeItem } from "./FileTreeItem";
 import { ContextMenu } from "./ContextMenu";
 import { BookmarkPanel } from "./BookmarkPanel";
 import { SearchPanel } from "./SearchPanel";
+import { BacklinkPanel } from "./BacklinkPanel";
 import { useWorkspaceStore } from "../../stores/workspaceStore";
 import { useThemeStore, Theme } from "../../stores/themeStore";
 import { useTagStore } from "../../stores/tagStore";
 import { useBookmarkStore } from "../../stores/bookmarkStore";
 import { useSearchStore } from "../../stores/searchStore";
 import { FileNode, NoteFile } from "../../types";
+import { ViewMode } from "../../App";
 import {
   FolderPlus,
   FilePlus,
@@ -21,8 +23,10 @@ import {
   Moon,
   Monitor,
   Tag as TagIcon,
+  GitBranch,
 } from "lucide-react";
 import { readFile, createFile, createFolder, parseFrontmatter, deleteFile } from "../../services/fileService";
+import { removeNoteFromIndex } from "../../services/searchService";
 import { cn } from "../../lib/utils";
 
 interface ContextMenuState {
@@ -35,7 +39,12 @@ function generateId(): string {
   return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }
 
-export function Sidebar() {
+interface SidebarProps {
+  viewMode?: ViewMode;
+  onViewModeChange?: (mode: ViewMode) => void;
+}
+
+export function Sidebar({ viewMode = "editor", onViewModeChange }: SidebarProps) {
   const { fileTree, activeNote, addOpenNote, setActiveNote, refreshFileTree, workspace } = useWorkspaceStore();
   const { theme, resolvedTheme, setTheme, initTheme } = useThemeStore();
   const { tags, selectedTags, toggleTag, clearSelection } = useTagStore();
@@ -125,6 +134,9 @@ export function Sidebar() {
     try {
       await deleteFile(node.path);
       removeBookmarkByPath(node.path);
+      if (!node.isDirectory) {
+        await removeNoteFromIndex(node.path);
+      }
       await refreshFileTree();
     } catch (error) {
       console.error("删除失败:", error);
@@ -471,19 +483,32 @@ export function Sidebar() {
             </span>
           )}
         </div>
-        {tags.length > 0 && (
+        <div className="flex items-center gap-1">
           <button
-            onClick={() => setShowTagFilter(!showTagFilter)}
+            onClick={() => onViewModeChange?.(viewMode === "graph" ? "editor" : "graph")}
             className={cn(
               "p-1 rounded transition-colors",
-              showTagFilter && "bg-primary/10"
+              viewMode === "graph" && "bg-primary/10"
             )}
-            style={{ color: showTagFilter ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))" }}
-            title="标签过滤"
+            style={{ color: viewMode === "graph" ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))" }}
+            title={viewMode === "graph" ? "返回编辑器" : "知识图谱"}
           >
-            <TagIcon className="h-3.5 w-3.5" />
+            <GitBranch className="h-3.5 w-3.5" />
           </button>
-        )}
+          {tags.length > 0 && (
+            <button
+              onClick={() => setShowTagFilter(!showTagFilter)}
+              className={cn(
+                "p-1 rounded transition-colors",
+                showTagFilter && "bg-primary/10"
+              )}
+              style={{ color: showTagFilter ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))" }}
+              title="标签过滤"
+            >
+              <TagIcon className="h-3.5 w-3.5" />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* ─── 右键菜单 ─── */}
@@ -510,6 +535,9 @@ export function Sidebar() {
 
       {/* ─── 全文搜索面板 ─── */}
       {isSearchOpen && <SearchPanel />}
+      
+      {/* ─── 反向链接面板 ─── */}
+      <BacklinkPanel />
     </aside>
   );
 }
