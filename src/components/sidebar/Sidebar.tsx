@@ -2,10 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import { FileTreeItem } from "./FileTreeItem";
 import { ContextMenu } from "./ContextMenu";
 import { BookmarkPanel } from "./BookmarkPanel";
+import { SearchPanel } from "./SearchPanel";
 import { useWorkspaceStore } from "../../stores/workspaceStore";
 import { useThemeStore, Theme } from "../../stores/themeStore";
 import { useTagStore } from "../../stores/tagStore";
 import { useBookmarkStore } from "../../stores/bookmarkStore";
+import { useSearchStore } from "../../stores/searchStore";
 import { FileNode, NoteFile } from "../../types";
 import {
   FolderPlus,
@@ -38,6 +40,7 @@ export function Sidebar() {
   const { theme, resolvedTheme, setTheme, initTheme } = useThemeStore();
   const { tags, selectedTags, toggleTag, clearSelection } = useTagStore();
   const { addBookmark, removeBookmarkByPath, isBookmarked } = useBookmarkStore();
+  const { isOpen: isSearchOpen, toggleSearch } = useSearchStore();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isCreating, setIsCreating] = useState<"file" | "folder" | null>(null);
   const [newItemName, setNewItemName] = useState("");
@@ -280,7 +283,22 @@ export function Sidebar() {
       </div>
 
       {/* ─── 搜索框 ─── */}
-      <div className="px-3 pt-2.5 pb-2">
+      <div className="px-3 pt-2.5 pb-2 space-y-2">
+        <button
+          onClick={toggleSearch}
+          className="w-full relative group cursor-pointer"
+        >
+          <Search
+            className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 transition-colors"
+            style={{ color: "hsl(var(--muted-foreground))" }}
+          />
+          <div
+            className="input-base pl-8 text-left text-xs"
+            style={{ color: "hsl(var(--muted-foreground))" }}
+          >
+            全文搜索...
+          </div>
+        </button>
         <div className="relative group">
           <Search
             className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 transition-colors"
@@ -288,10 +306,10 @@ export function Sidebar() {
           />
           <input
             type="text"
-            placeholder="搜索文件..."
+            placeholder="过滤文件..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="input-base pl-8"
+            className="input-base pl-8 text-xs"
           />
         </div>
       </div>
@@ -489,6 +507,9 @@ export function Sidebar() {
           isBookmarked={isBookmarked(contextMenu.node.path)}
         />
       )}
+
+      {/* ─── 全文搜索面板 ─── */}
+      {isSearchOpen && <SearchPanel />}
     </aside>
   );
 }
